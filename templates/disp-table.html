@@ -1,0 +1,27 @@
+<table class= "table table-light table-striped table-hover table-bordered">
+  <thead>
+    <tr class= "table-group-divider">
+      <th>id</th>
+      <th >MAC</th>
+      <th >Location</th>
+      <th >Status</th>
+    </tr>
+  </thead>
+
+  <tbody class = "table-group-divider">
+    {% for disp in disps %}
+    <tr>
+
+      <th scope="row">{{disp ['id']}}</th>
+      <td >{{disp ['MAC']}}</td>
+      <td>{{disp ['location']}}</td>
+      {% if disp ['status'] == '1' %}
+      <td  class="table-success">Conected</td>
+      {% else %}
+      <td class= "table-danger">Disconnected</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
