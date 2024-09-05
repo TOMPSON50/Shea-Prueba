@@ -9,17 +9,25 @@
   </thead>
 
   <tbody class = "table-group-divider">
-    {% for disp in disps %}
+    {% for disp in data %}
     <tr>
 
       <th scope="row">{{disp ['id']}}</th>
       <td >{{disp ['MAC']}}</td>
-      <td>{{disp ['location']}}</td>
-      {% if disp ['status'] == '1' %}
+      <td>{{disp ['Location']}}</td>
+      {% if disp ['Status'] == True %}
       <td  class="table-success">Conected</td>
       {% else %}
       <td class= "table-danger">Disconnected</td>
       {% endif %}
+      <td>
+        <a
+          href = "https://google.com" type= "button" class ="btn btn-outline-warning"> EDIT
+        </a>
+        <a
+        href = "disp/{{disp['id']}}" type= "button" class ="btn btn-outline-warning"> VIEW
+      </a>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
