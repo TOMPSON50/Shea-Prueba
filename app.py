@@ -41,7 +41,7 @@ def add():
           'Location': Location_data,
           'Status' : Status_data    
           }).execute()
-      return redirect('/')
+      return redirect('/') 
     
       
 
