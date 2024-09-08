@@ -23,14 +23,12 @@
 <body>
 
   <h1 class= "mb-4 mt-2">Welcome to Shea Solution</h1>
-  <img class ="img-fluid" id= "banner" src ="static/banner.jpg">
-
+  <img class ="img-fluid" id= "banner" src ="/static/banner.jpg">
+  <div class = "container">
+    {% include 'disp-table.html' %}
+  <div>
   <div class="container-sm"style="width: 20%;">
-    <form action="/add" method="POST">
-      <div class="mb-3" >
-        <label for="MAC" class="form-label">MAC</label>
-        <input type="text" class="form-control" style="text-transform:uppercase" name="MAC" required>
-      </div>
+    <form action="/disp/edit/<id>" method="POST">
       <div class="mb-3">
         <label for="Location" class="form-label">Location</label>
         <input type="text" class="form-control" name="Location">
