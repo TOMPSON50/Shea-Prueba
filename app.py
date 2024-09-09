@@ -58,10 +58,25 @@ def disp_delete (id):
    
 @app.route ('/disp/edit/<id>', methods = ['POST', 'GET'])
 def disp_edit (id):
-    desired_value = id
-    response = supabase.table('dispositivos').select('*').eq('id', desired_value).limit(1).execute()
+    Location_data= request.form.get('Location')
+    Status_data = request.form.get ('Status')
+    response = (
+    supabase.table("dispositivos")
+    .update({
+       "Location": Location_data,
+       "Status" : Status_data
+       })
+    .eq("id", id)
+    .execute())
+    response = supabase.table('dispositivos').select('*').eq('id', id).limit(1).execute()
     data = response.data
-    return render_template ('edit_disp.html', data = data)
+    timestampz = data[0]['created_at']
+    timestampz_obj = parser.isoparse(timestampz)
+    formatted_timestamp = timestampz_obj.strftime("%Y-%m-%d %H:%M:%S %Z")
+    if not response:
+      return "Not Found", 404
+    else:
+       return render_template ('/disp.html', data=data, timestamp=formatted_timestamp )
    
    
 
