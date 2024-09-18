@@ -67,7 +67,7 @@
               
             </div>
             <div class="container-sm"style="width: 20%;" id = "editForm">
-              <form action="/disp/edit/{{data ['id']}}" method="POST" onsubmit="confirmarEliminacion(event)">
+              <form action="/disp/edit/{{data ['id']}}" method="POST" onsubmit="confirmarEdicion(event)">
                 <div class="mb-3">
                   <label for="Location" class="form-label">Location</label>
                   <input type="text" class="form-control" name="Location">
@@ -86,7 +86,16 @@
     <script>
         // Función para mostrar el cuadro de confirmación
         function confirmarEliminacion(event) {
-            var confirmacion = confirm("¿Estás seguro que deseas eliminar este elemento?");
+            var confirmacion = confirm("¿Estás seguro que deseas Eliminar este elemento?");
+            if (!confirmacion) {
+                
+                event.preventDefault(); 
+                console.log("Hola apretaste que no");// Detiene el envío del formulario si se cancela
+            }else{
+            console.log ("Fue aceptar");}
+        }
+        function confirmarEdicion(event) {
+            var confirmacion = confirm("¿Estás seguro que deseas Editar este elemento?");
             if (!confirmacion) {
                 
                 event.preventDefault(); 

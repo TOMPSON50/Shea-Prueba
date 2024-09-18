@@ -12,7 +12,7 @@
     {% for disp in data %}
     <tr>
 
-      <th scope="row">{{disp ['id']}}</th>
+      <th scope="row">{{loop.index0 + 1}}</th>
       <td >{{disp ['MAC']}}</td>
       <td>{{disp ['Location']}}</td>
       {% if disp ['Status'] == True %}
