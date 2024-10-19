@@ -24,13 +24,11 @@
 
   <h1 class= "mb-4 mt-2">Welcome to Shea Solution</h1>
   <img class ="img-fluid" id= "banner" src ="/static/banner.jpg">
-  <h1 class= "mb-4 mt-2">{{ cliente }}</h1>
+  <div class = "container">
+    {% include 'disp-table.html' %}
+  <div>
   <div class="container-sm"style="width: 20%;">
-    <form action="/cliente/dispositivos/add/{{clienteid}}" method="POST">
-      <div class="mb-3" >
-        <label for="MAC" class="form-label">MAC</label>
-        <input type="text" class="form-control" style="text-transform:uppercase" name="MAC" required>
-      </div>
+    <form action="/disp/edit/<id>" method="POST">
       <div class="mb-3">
         <label for="Location" class="form-label">Location</label>
         <input type="text" class="form-control" name="Location">
@@ -39,7 +37,7 @@
         <label for="Status" class="form-label">Status 0 o 1</label>
         <input type="text" class="form-control" name="Status">
       </div>
-      <input type="submit" value="Add" class="btn btn-primary">
+      <input type="submit" class="btn btn-primary">
     </form>
 </div> 
 {% include 'footer.html' %} 

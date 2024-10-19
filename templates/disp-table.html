@@ -2,31 +2,41 @@
   <thead>
     <tr class= "table-group-divider">
       <th>id</th>
-      <th >MAC</th>
-      <th >Location</th>
-      <th >Status</th>
+      <th >Cliente</th>
+      <th >
+        Actions
+      </th>
     </tr>
   </thead>
-
+  {% if session ['role'] == 'admin'%}
   <tbody class = "table-group-divider">
     {% for disp in data %}
     <tr>
 
       <th scope="row">{{loop.index0 + 1}}</th>
-      <td >{{disp ['MAC']}}</td>
-      <td>{{disp ['Location']}}</td>
-      {% if disp ['Status'] == True %}
-      <td  class="table-success">Conected</td>
-      {% else %}
-      <td class= "table-danger">Disconnected</td>
-      {% endif %}
+      <td >{{disp ['nombre']}}</td>
       <td>
         <a
-        href = "disp/{{disp['id']}}" type= "button" class ="btn btn-outline-warning"> VIEW
+        href = "cliente/{{disp['id']}}" type= "button" class ="btn btn-outline-warning"> VIEW
       </a>
       </td>
     </tr>
     {% endfor %}
   </tbody>
+  {% else %}
+     {% if session ['user_cliente_id'] != 0 %}
+     <tbody class = "table-group-divider">
+      <tr>
+        <th scope="row">1</th>
+        <td >{{ cliente }}</td>
+        <td>
+          <a
+          href = "cliente/{{session ['user_cliente_id']}}" type= "button" class ="btn btn-outline-warning"> VIEW
+        </a>
+        </td>
+      </tr>
+      {% endif %}
+  {% endif %}    
+    </tbody>
 
 </table>

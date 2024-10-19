@@ -1,0 +1,45 @@
+<style>
+  #home {
+    margin-left: 3px;
+  }
+</style>
+<table class= "table table-light table-striped table-hover table-bordered">
+  <thead>
+    <button class ="btn btn-outline-primary mb-3" onclick="goBack()"><i class="fa-solid fa-backward"></i></button>
+    <a class="btn btn-outline-primary mb-3 " id = "home" href="/dashboard"><i class="fa-solid fa-house"></i></a>
+    {% if session ['role'] != 'operador' %}
+    <a
+    href = "add/{{clienteid}}" type= "button" class ="btn btn-outline-warning mb-3 float-end"> Añadir Dispositivo
+    </a>
+    {% endif %}
+    <tr class= "table-group-divider">
+      <th>id</th>
+      <th >MAC</th>
+      <th >Location</th>
+      <th >Status </th>
+      <th >Actions </th>
+    </tr>
+  </thead>
+
+   <tbody class = "table-group-divider">
+    {% for disp in data %}
+    <tr>
+      <th scope="row">{{loop.index0 + 1}}</th>
+      <td >{{disp ['MAC']}}</td>
+      <td >{{disp ['Location']}}</td>
+      <td >{{disp ['Status']}}</td>
+      <td>
+        <a
+        href = "ver/{{clienteid}}/{{disp['id']}}" type= "button" class ="btn btn-outline-warning"> VIEW
+      </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+<script>
+  function goBack() {
+      window.history.back();  // Regresar a la página anterior
+  }
+</script>

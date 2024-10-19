@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'bootstrap.html' %}
+    <style>
+      #banner {
+        height: 360px;
+        width: 100%;
+        object-fit: cover;
+      }
+      h1{
+        text-align: center;
+      }
+      h2{
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    <h1 class= "mb-4 mt-2">Welcome to Shea Solution</h1>
+    <img class ="img-fluid" id= "banner" src ="/static/banner.jpg">
+    <div class = "container">
+      <h2>About Shea Solution</h2>
+      <p class= "lead">We provide solutions for your business IOT needs.         </p>
+      <form action="/register" method="POST">
+        <div class="mb-3">
+            <label for="Username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="Username">
+            </div>
+             <div class="mb-3">
+            <label for="Password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="Password">
+            </div>
+            <div class="mb-3">
+            <label for="Role" class="form-label">Role</label>
+            <select class="form-select" name = "Role" aria-label="Default select example">
+              <option selected>Role</option>
+              {% if session ['role'] == 'admin' %}
+              <option value="admin">Administrador General</option>
+              {% endif %}
+              <option value="adminempresa">Administrador de Empresa</option>
+              <option value="usuarioanz">Usuario Avanzado</option>
+              <option value="operador">Operador</option>
+            </select>
+            </div>
+            <div class="mb-3">
+              {% if session ['role'] == 'adminempresa' %}
+              <label for="Cliente" class="form-label">Cliente</label>
+              <select class="form-select" name = "clienteid" aria-label="Default select example">
+                <option value = "{{ session ['user_cliente_id'] }}"selected>{{ session ['user_cliente_id'] }}</option>
+              {% endif %}
+              {% if session ['role'] == 'admin' %}
+              <label for="Cliente" class="form-label">Cliente</label>
+              <select class="form-select" name = "clienteid" aria-label="Default select example">
+                <option selected>Clientes</option>
+                {% for disp in data %}
+                <option value="{{disp ['id']}}">{{disp ['nombre']}}</option>
+                {% endfor %}
+              </select>
+              {% endif %}
+            </div>
+            <input type="submit" class="btn btn-primary mt-3">
+        </div>
+
+      </form>
+      {% include 'footer.html' %}    
+    </body>

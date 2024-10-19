@@ -23,12 +23,19 @@
     <div class = "container">
       <h2>About Shea Solution</h2>
       <p class= "lead">We provide solutions for your business IOT needs.         </p>
-      <h2>{{ session['user'] }} eres {{session ['role']}} empresa id: {{ session ['user_cliente_id'] }}</h2>
-      <div>
-      {% include 'disp-table.html' %}
-      <div>
-      <button class= "btn btn-primary">Contact us</button>
-    </div>
-    {% include 'footer.html' %}    
-  </body>
-</html>
+      <form action="/" method="POST">
+        <div class="mb-3">
+            <label for="Username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="Username">
+            </div>
+             <div class="mb-3">
+            <label for="Password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="Password">
+            </div>
+            <input type="submit" class="btn btn-primary">
+            
+        </div>
+
+      </form>
+      {% include 'footer.html' %}    
+    </body>
