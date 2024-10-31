@@ -60,12 +60,24 @@ def register():
       password = request.form.get ('Password')
       password = generate_password_hash (password)
       role = request.form.get ('Role')
-      user_cliente_id = request.form.get ('clienteid')
+      if role == "admin":
+         user_cliente_id = 0
+      else:
+         user_cliente_id = request.form.get ('clienteid')
+      print (user_cliente_id)
+      nombre = request.form.get ('Nombre')
+      apellido = request.form.get ('Apellido')
+      email = request.form.get ('Email')
+      telefono = request.form.get ('Telefono')
       response = supabase.table('usuarios').insert({
           'username': username,
           'password': password,
           'role' : role,
-          'user_cliente_id' : user_cliente_id    
+          'user_cliente_id' : user_cliente_id,
+          'Nombre' : nombre,
+          'Apellido' : apellido,
+          'Email' : email,
+          'Telefono' : telefono
           }).execute()
       return redirect('/')
 
@@ -108,11 +120,45 @@ def get_disp(id):
 @app.route ('/addcliente', methods = ['POST', 'GET'])
 def add_cliente():
    nombre = request.form.get ('nombre')
+   Alias = request.form.get ('Alias')
+   rfc = request.form.get ('rfc')
+   calle = request.form.get ('calle')
+   numeroExterior = request.form.get ('numeroExterior')
+   numeroInterior = request.form.get ('numeroInterior')
+   colonia = request.form.get ('colonia')
+   ciudad = request.form.get ('ciudad')
+   estado = request.form.get ('estado')
+   codigoPostal = request.form.get ('codigoPostal')
+   pais = request.form.get ('pais')
+   adminNombre = request.form.get ('adminNombre')
+   adminEmail = request.form.get ('adminEmail')
+   adminTelefono = request.form.get ('adminTelefono')
+   tecnicoNombre = request.form.get ('tecnicoNombre')
+   tecnicoEmail = request.form.get ('tecnicoEmail')
+   tecnicoTelefono = request.form.get ('tecnicoTelefono')
+   Alias = request.form.get ('Alias')
+   Alias = request.form.get ('Alias')
    if not nombre:
       return render_template ('add_cliente.html')
    else: 
       response = supabase.table('clientes').insert({
-          'nombre': nombre,    
+          'nombre': nombre,
+          'alias' : Alias,
+          'rfc' : rfc,
+          'calle' : calle,
+          'numeroExterior' : numeroExterior,
+          'numeroInterior' : numeroInterior,
+          'colonia' : colonia,
+          'ciudad' : ciudad,
+          'estado' : estado,
+          'codigoPostal' : codigoPostal,
+          'pais' : pais,
+          'adminNombre' : adminNombre,
+          'adminEmail' : adminEmail,
+          'adminTelefono' : adminTelefono,
+          'tecnicoNombre' : tecnicoNombre,
+          'tecnicoEmail' : tecnicoEmail,
+          'tecnicoTelefono' : tecnicoTelefono    
           }).execute()
       return redirect('/dashboard')
    
@@ -188,7 +234,7 @@ def ver_dispositivo (clienteid, id):
    timestampz = data[0]['created_at']
    timestampz_obj = parser.isoparse(timestampz)
    formatted_timestamp = timestampz_obj.strftime("%Y-%m-%d %H:%M:%S %Z")
-   return render_template ('/ver_dispositivo.html', cliente = cliente, data = data, timestamp=formatted_timestamp)
+   return render_template ('/ver_dispositivo.html', cliente = cliente,clienteid = clienteid , data = data, timestamp=formatted_timestamp)
 
 ##BORRAR DISPOSITIVO
 @app.route ('/cliente/dispositivos/ver/<clienteid>/delete/<id>', methods = ['POST', 'GET'])

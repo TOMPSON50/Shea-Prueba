@@ -21,9 +21,6 @@
   <title>Submit Form to Supabase</title>
 </head>
 <body>
-
-  <h1 class= "mb-4 mt-2">Welcome to Shea Solution</h1>
-  <img class ="img-fluid" id= "banner" src ="/static/banner.jpg">
   <div class = "container">
     {% include 'disp-table.html' %}
   <div>

@@ -18,20 +18,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Submit Form to Supabase</title>
+  
 </head>
 <body>
 
   <h1 class= "mb-4 mt-2">Welcome to Shea Solution</h1>
-  <img class ="img-fluid" id= "banner" src ="static/banner.jpg">
-
   <div class="container-sm"style="width: 20%;">
     <form action="/addcliente" method="POST">
+      <a class="btn btn-outline-primary mb-3 mt-2" href="/dashboard"><i class="fa-solid fa-arrow-left"></i></a>
+      <h3>Datos de la Empresa</h3>
       <div class="mb-3" >
-        <label for="nombre" class="form-label">Nombre del Cliente</label>
+        <label for="nombre" class="form-label">Nombre de la Empresa:</label>
         <input type="text" class="form-control" style="text-transform:uppercase" name="nombre" required>
       </div>
-      <input type="submit" value="Add" class="btn btn-primary">
+      <div class="mb-3" >
+        <label for="Alias" class="form-label">Alias:</label>
+        <input type="text" class="form-control" style="text-transform:uppercase" name="Alias" required>
+      </div>
+      <div class="mb-3">
+        <label for="rfc" class="form-label">RFC:</label>
+        <input type="text" class="form-control" id="rfc" name="rfc" required placeholder="Ingrese el RFC de Persona Moral" pattern="[A-ZÑ&]{3}[0-9]{6}[A-Z0-9]{3}">
+        <small>Formato: 3 letras + 6 dígitos de fecha + 3 caracteres alfanuméricos</small>
+    </div>
+    <h3>Dirección Fiscal</h3>
+    <div class="mb-3">
+        <label for="calle" class="form-label">Calle:</label>
+        <input type="text" class="form-control" id="calle" name="calle" required>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label for="numeroExterior" class="form-label">Número Exterior:</label>
+            <input type="text" class="form-control" id="numeroExterior" name="numeroExterior" required>
+        </div>
+        
+        <div class="col-md-6">
+            <label for="numeroInterior" class="form-label">Número Interior:</label>
+            <input type="text" class="form-control" id="numeroInterior" name="numeroInterior" placeholder="Opcional">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="colonia" class="form-label">Colonia:</label>
+        <input type="text" class="form-control" id="colonia" name="colonia" required>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label for="ciudad" class="form-label">Ciudad:</label>
+            <input type="text" class="form-control" id="ciudad" name="ciudad" required>
+        </div>
+        
+        <div class="col-md-6">
+            <label for="estado" class="form-label">Estado o Provincia:</label>
+            <input type="text" class="form-control" id="estado" name="estado" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label for="codigoPostal" class="form-label">Código Postal:</label>
+            <input type="text" class="form-control" id="codigoPostal" name="codigoPostal" pattern="\d{5}" required>
+        </div>
+        
+        <div class="col-md-6">
+            <label for="pais" class="form-label">País:</label>
+            <select class="form-select" id="pais" name="pais" required>
+                <option selected disabled>Seleccione un país</option>
+                <option value="México">México</option>
+                <option value="Estados Unidos">Estados Unidos</option>
+                <option value="Canada">Canadá</option>
+                <!-- Agrega otros países según sea necesario -->
+            </select>
+        </div>
+    </div>
+    <!-- Contacto Técnico -->
+    <h3 class ="mt-2">Contacto Administrativo</h3>
+        <div class="mb-3">
+            <label for="adminNombre" class="form-label">Nombre Completo:</label>
+            <input type="text" class="form-control" id="adminNombre" name="adminNombre" required placeholder="Nombre del contacto administrativo">
+        </div>
+
+        <div class="mb-3">
+            <label for="adminEmail" class="form-label">Correo Electrónico:</label>
+            <input type="email"class="form-control"  id="adminEmail" name="adminEmail" required placeholder="Correo electrónico del contacto administrativo">
+        </div>
+
+        <div class="mb-3">
+            <label for="adminTelefono" class="form-label">Teléfono:</label>
+            <input type="tel" class="form-control" id="adminTelefono" name="adminTelefono" required placeholder="Teléfono del contacto administrativo">
+        </div>
+     <!-- Contacto Técnico -->
+     <h3>Contacto Técnico</h3>
+     <div class="mb-3">
+         <label for="tecnicoNombre" class="form-label">Nombre Completo:</label>
+         <input type="text" class="form-control" id="tecnicoNombre" name="tecnicoNombre" required placeholder="Nombre del contacto técnico">
+     </div>
+
+     <div class="mb-3">
+         <label for="tecnicoEmail" class="form-label">Correo Electrónico:</label>
+         <input type="email" class="form-control" id="tecnicoEmail" name="tecnicoEmail" required placeholder="Correo electrónico del contacto técnico">
+     </div>
+
+     <div class="mb-3">
+         <label for="tecnicoTelefono" class="form-label">Teléfono:</label>
+         <input type="tel" class="form-control" id="tecnicoTelefono" name="tecnicoTelefono" required placeholder="Teléfono del contacto técnico">
+     </div>
+      <input  type="submit" value="Crear" class="btn btn-primary mt-2">
     </form>
 </div> 
 {% include 'footer.html' %} 
