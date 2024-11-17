@@ -1,0 +1,56 @@
+
+    <form action="/cliente/edit/{{data ['id']}}" method="POST" onsubmit="confirmarEdicion(event)">
+        <input type="hidden" name="form_id" value="form2">
+        <div class="mb-3">
+            <label for="calle" class="form-label">Calle:</label>
+            <input type="text" class="form-control" id="calle" name="calle" required>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="numeroExterior" class="form-label">Número Exterior:</label>
+                <input type="text" class="form-control" id="numeroExterior" name="numeroExterior" required>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="numeroInterior" class="form-label">Número Interior:</label>
+                <input type="text" class="form-control" id="numeroInterior" name="numeroInterior" placeholder="Opcional">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="colonia" class="form-label">Colonia:</label>
+            <input type="text" class="form-control" id="colonia" name="colonia" required>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="ciudad" class="form-label">Ciudad:</label>
+                <input type="text" class="form-control" id="ciudad" name="ciudad" required>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="estado" class="form-label">Estado:</label>
+                <input type="text" class="form-control" id="estado" name="estado" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="codigoPostal" class="form-label">Código Postal:</label>
+                <input type="text" class="form-control" id="codigoPostal" name="codigoPostal" pattern="\d{5}" required>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="pais" class="form-label">País:</label>
+                <select class="form-select" id="pais" name="pais" required>
+                    <option selected disabled>Seleccione un país</option>
+                    <option value="México">México</option>
+                    <option value="Estados Unidos">Estados Unidos</option>
+                    <option value="Canada">Canadá</option>
+                    <!-- Agrega otros países según sea necesario -->
+                </select>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary mt-2">
+    </form>

@@ -1,0 +1,70 @@
+<style>
+    #home {
+      margin-left: 3px;
+    }
+  </style>
+  <table class= "table table-light table-striped table-hover table-bordered">
+    <thead>
+      <a class="btn btn-outline-primary mb-3 " id = "home" href="/cliente/{{clienteid}}"><i class="fa-solid fa-arrow-left"></i></a>
+      <a class="btn btn-outline-primary mb-3 " id = "home" href="/dashboard"><i class="fa-solid fa-house"></i></a>
+      {% if session ['role'] != 'operador' %}
+      <a
+      href = "add/{{clienteid}}" type= "button" class ="btn btn-outline-warning mb-3 float-end"> Añadir Dispositivo
+      </a>
+      {% endif %}
+      <tr class= "table-group-divider">
+        <th>#</th>
+        <th >Nombre</th>
+        <th >Apellido</th>
+        <th >Role </th>
+        <th >Empresa </th>
+        <th> Actions</th>
+      </tr>
+    </thead>
+  
+     <tbody class = "table-group-divider">
+      {% for disp in data %}
+      <tr>
+        <th scope="row">{{loop.index0 + 1}}</th>
+        <td >{{disp ['Nombre']}}</td>
+        <td >{{disp ['Apellido']}}</td>
+        <td>
+          {% if disp ['role'] == 'admin' %}
+          Administrador General
+          {% endif %}
+          {% if disp ['role'] == 'adminempresa' %}
+          Administrador de Empresa
+          {% endif %}
+          {% if disp ['role'] == 'usuarioanz' %}
+          Usuario Avanzado
+          {% endif %}
+          {% if disp ['role'] == 'operador' %}
+          Operador
+          {% endif %}
+        </td>
+          {% if disp ['user_cliente_id'] == 0 %}
+            <td >NA</td>
+          {% else %}
+            {% set empresa_mostrada = false %} 
+            {% for cliente in data_clientes %}
+                {% if disp ['user_cliente_id'] == cliente ['id'] and not empresa_mostrada %}
+                    <td >{{ cliente ['nombre'] }}</td>
+                {% set empresa_mostrada = true %}   
+                {% endif %}
+            {% endfor %}
+          {% endif %}
+        <td>
+          <a
+          href = "usuario/{{disp['id']}}" type= "button" class ="btn btn-outline-warning"> VIEW
+        </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  
+  </table>
+  <script>
+    function goBack() {
+        window.history.back();  // Regresar a la página anterior
+    }
+  </script>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shea Solution</title>
+    {% include 'bootstrap.html' %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-            QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+      #banner {
+        height: 360px;
+        width: 100%;
+        object-fit: cover;
+      }
+      h1{
+        text-align: center;
+      }
+      h2{
+        text-align: center;
+      }
+      #editForm {
+            display: none;
+        }
+      #editFormdireccion {
+        display: none;
+      }
+      #editFormadmin{
+        display: none;
+      }
+      #editFormusuario{
+        display: none;
+      }  
+    </style>
+  </head>
+<body>
+    {% include 'nav.html' %}
+    <div class = "container">
+      <h2>About Shea Solution</h2>
+      <p class= "lead">We provide solutions for your business IOT needs.         </p>
+      <h2>Ver Usuario</h2>
+      <a class="btn btn-outline-primary mb-3" href="/verusuarios"><i class="fa-solid fa-arrow-left"></i></a>
+      <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                {% for data in data %}
+                <div class="card text-center shadow">
+                    <div class="card-header">
+                        <h5 class="card-title">{{ data ['Nombre'] }} {{ data ['Apellido'] }}</h5>
+                    </div>
+                    <div class="card-body">
+                        
+                        <p class="card-text text-start"><strong>Username:</strong> {{ data ['username'] }}</p>
+                        {% if data ['role'] == 'admin' %}
+                        <p class="card-text text-start"><strong>Role:</strong> Administrador General</p>
+                        {% endif %}
+                        {% if data ['role'] == 'adminempresa' %}
+                        <p class="card-text text-start"><strong>Role:</strong> Administrador de Empresa</p>
+                        {% endif %}
+                        {% if data ['role'] == 'usuarioanz' %}
+                        <p class="card-text text-start"><strong>Role:</strong> Usuario Avanzado</p>
+                        {% endif %}
+                        {% if data ['role'] == 'operador' %}
+                        <p class="card-text text-start"><strong>Role:</strong> Operador</p>
+                        {% endif %}
+                        <p class="card-text text-start"><strong>Empresa:</strong> {{ cliente }}</p>
+                        <p class="card-text text-start"><strong>Email:</strong> {{data ['Email']}}</p>
+                        <p class="card-text text-start"><strong>Telefono:</strong> {{data ['Telefono']}}</p>
+                        {% if session ['role'] == 'admin' %}
+                        <button type="submit" onclick = "edit_disp_usuario(event)" class ="btn btn-primary mt-2">Editar</button>
+                        {% endif %}
+                        {% if session ['role'] == 'admin' %}
+                        <form action="delete/{{data ['id']}}" method="POST" style="display:inline;" onsubmit="confirmarEliminacion(event)">
+                          <button type="submit" class ="btn btn-danger mt-2">Eliminar</button>
+                        </form>
+                        {% endif %} 
+  
+                    </div>
+                    <div class="card-footer text-muted">
+                        Información de usuario
+                    </div>
+                </div>
+                {% endfor %} 
+            </div>
+            
+            <!-- Añadir más tarjetas duplicando el div.col-md-4 con cada usuario -->
+    
+        </div>
+    </div>
+    <div class="container-sm"style="width: 20%;" id = "editFormusuario">
+    {% include 'formulario_usuarios.html' %}
+    </div>
+    {% include 'footer.html' %}
+</body>
+<script>
+
+function edit_disp_usuario (event){
+          if (editFormusuario.style.display === "none" || editFormusuario.style.display === "") {
+                editFormusuario.style.display = "block";
+            } else {
+                editFormusuario.style.display = "none";
+            }
+
+        }
+
+</script>

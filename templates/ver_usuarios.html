@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'bootstrap.html' %}
+    <style>
+      #banner {
+        height: 360px;
+        width: 100%;
+        object-fit: cover;
+      }
+      h1{
+        text-align: center;
+      }
+      h2{
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    <div class = "container">
+      <h2>About Shea Solution</h2>
+      <p class= "lead">We provide solutions for your business IOT needs.         </p>
+      <h2>{{ cliente }}</h2>
+      <div>
+      {% include 'tabla_usuarios.html' %}
+      <div>
+      <button class= "btn btn-primary">Contact us</button>
+    </div>
+    {% include 'footer.html' %}    
+  </body>
+</html>

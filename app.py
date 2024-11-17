@@ -109,12 +109,13 @@ def get_disp(id):
     desired_value = id
     response = supabase.table('clientes').select('*').eq('id', desired_value).limit(1).execute()
     data = response.data
+    alias = data[0]['alias']
     timestampz = data[0]['created_at']
     timestampz_obj = parser.isoparse(timestampz)
     formatted_timestamp = timestampz_obj.strftime("%Y-%m-%d %H:%M:%S %Z")
     if not data:
       return "Not Found", 404
-    return render_template('disp.html', data=data, timestamp=formatted_timestamp)
+    return render_template('disp_cliente.html', data=data, timestamp=formatted_timestamp, alias =alias)
 
 ##AÑADIR CLIENTE
 @app.route ('/addcliente', methods = ['POST', 'GET'])
@@ -136,8 +137,6 @@ def add_cliente():
    tecnicoNombre = request.form.get ('tecnicoNombre')
    tecnicoEmail = request.form.get ('tecnicoEmail')
    tecnicoTelefono = request.form.get ('tecnicoTelefono')
-   Alias = request.form.get ('Alias')
-   Alias = request.form.get ('Alias')
    if not nombre:
       return render_template ('add_cliente.html')
    else: 
@@ -165,23 +164,108 @@ def add_cliente():
 ##EDITAR CLIENTE
 @app.route ('/cliente/edit/<id>', methods = ['POST', 'GET'])
 def cliente_edit (id):
-   nombre = request.form.get ('nombre')
-   response = (
-    supabase.table("clientes")
-    .update({
-       "nombre": nombre,
-       })
-    .eq("id", id)
-    .execute())
-   response = supabase.table('clientes').select('*').eq('id', id).limit(1).execute()
-   data = response.data
-   timestampz = data[0]['created_at']
-   timestampz_obj = parser.isoparse(timestampz)
-   formatted_timestamp = timestampz_obj.strftime("%Y-%m-%d %H:%M:%S %Z")
-   if not response:
-      return "Not Found", 404
-   else:
-      return render_template ('/disp.html', data=data, timestamp=formatted_timestamp )
+   formid = request.form.get('form_id')
+   print (formid)
+   if formid == 'form1':
+      nombre = request.form.get ('nombre')
+      alias = request.form.get ('alias')
+      rfc = request.form.get ('rfc')
+      response = (
+      supabase.table("clientes")
+      .update({
+          "nombre": nombre,
+          "alias" : alias,
+          "rfc" : rfc
+         })
+      .eq("id", id)
+      .execute())
+      response = supabase.table('clientes').select('*').eq('id', id).limit(1).execute()
+      data = response.data
+      timestampz = data[0]['created_at']
+      timestampz_obj = parser.isoparse(timestampz)
+      formatted_timestamp = timestampz_obj.strftime("%Y-%m-%d %H:%M:%S %Z")
+      if not response:
+         return "Not Found", 404
+      else:
+         return render_template ('/disp_cliente.html', data=data, timestamp=formatted_timestamp )
+   if formid == 'form2':
+      calle = request.form.get ('calle')
+      numeroExterior = request.form.get ('numeroExterior')
+      numeroInterior = request.form.get ('numeroInterior')
+      colonia = request.form.get ('colonia')
+      ciudad = request.form.get ('ciudad')
+      estado = request.form.get ('estado')
+      codigoPostal = request.form.get ('codigoPostal')
+      pais = request.form.get ('pais')
+      response = (
+      supabase.table("clientes")
+      .update({
+          'calle' : calle,
+          'numeroExterior' : numeroExterior,
+          'numeroInterior' : numeroInterior,
+          'colonia' : colonia,
+          'ciudad' : ciudad,
+          'estado' : estado,
+          'codigoPostal' : codigoPostal,
+          'pais' : pais,
+         })
+      .eq("id", id)
+      .execute())
+      response = supabase.table('clientes').select('*').eq('id', id).limit(1).execute()
+      data = response.data
+      timestampz = data[0]['created_at']
+      timestampz_obj = parser.isoparse(timestampz)
+      formatted_timestamp = timestampz_obj.strftime("%Y-%m-%d %H:%M:%S %Z")
+      if not response:
+         return "Not Found", 404
+      else:
+         return render_template ('/disp_cliente.html', data=data, timestamp=formatted_timestamp )
+   if formid == 'form3':
+      adminNombre = request.form.get ('adminNombre')
+      adminEmail = request.form.get ('adminEmail')
+      adminTelefono = request.form.get ('adminTelefono')
+      response = (
+      supabase.table("clientes")
+      .update({
+          'adminNombre' : adminNombre,
+          'adminEmail' : adminEmail,
+          'adminTelefono' : adminTelefono,
+         })
+      .eq("id", id)
+      .execute())
+      response = supabase.table('clientes').select('*').eq('id', id).limit(1).execute()
+      data = response.data
+      timestampz = data[0]['created_at']
+      timestampz_obj = parser.isoparse(timestampz)
+      formatted_timestamp = timestampz_obj.strftime("%Y-%m-%d %H:%M:%S %Z")
+      if not response:
+         return "Not Found", 404
+      else:
+         return render_template ('/disp_cliente.html', data=data, timestamp=formatted_timestamp )
+   if formid == 'form4':
+      tecnicoNombre = request.form.get ('tecnicoNombre')
+      tecnicoEmail = request.form.get ('tecnicoEmail')
+      tecnicoTelefono = request.form.get ('tecnicoTelefono')
+      response = (
+      supabase.table("clientes")
+      .update({
+          'tecnicoNombre' : tecnicoNombre,
+          'tecnicoEmail' : tecnicoEmail,
+          'tecnicoTelefono' : tecnicoTelefono 
+         })
+      .eq("id", id)
+      .execute())
+      response = supabase.table('clientes').select('*').eq('id', id).limit(1).execute()
+      data = response.data
+      timestampz = data[0]['created_at']
+      timestampz_obj = parser.isoparse(timestampz)
+      formatted_timestamp = timestampz_obj.strftime("%Y-%m-%d %H:%M:%S %Z")
+      if not response:
+         return "Not Found", 404
+      else:
+         return render_template ('/disp_cliente.html', data=data, timestamp=formatted_timestamp )
+      
+
 ## BORRAR CLIENTE
 @app.route('/cliente/delete/<id>', methods = ['POST', 'GET'])
 def disp_delete (id):
@@ -260,6 +344,67 @@ def edit_dispositivo (clienteid, id):
     .execute())
     return redirect (url_for('ver_dispositivo', clienteid = clienteid, id = id))
    
+##VER USUARIOS
+@app.route ('/verusuarios', methods = ['POST', 'GET'])
+def ver_usuarios ():
+      if "user" in session:
+         response = supabase.table("usuarios").select("*").execute()
+         data = response.data
+         response = supabase.table("clientes").select("*").execute()
+         data_clientes = response.data
+         id = session ['user_cliente_id']
+         return render_template ('ver_usuarios.html', data = data, data_clientes = data_clientes)
+      
+#VER USUARIO
+@app.route('/usuario/<id>', methods=['GET'])
+def get_usuario(id):     
+    desired_value = id
+    response = supabase.table('usuarios').select('*').eq('id', desired_value).limit(1).execute()
+    data = response.data
+    clienteid = data [0]['user_cliente_id']
+    if clienteid == 0:
+       cliente = 'NA'
+    else:
+      response = supabase.table('clientes').select('nombre').eq('id', clienteid).execute()
+      cliente = response.data[0]['nombre']
+    timestampz = data[0]['created_at']
+    timestampz_obj = parser.isoparse(timestampz)
+    formatted_timestamp = timestampz_obj.strftime("%Y-%m-%d %H:%M:%S %Z")
+    if not data:
+      return "Not Found", 404
+    return render_template('disp_usuario.html', data=data, timestamp=formatted_timestamp, cliente = cliente, id = id, clienteid = clienteid)
+
+##EDITAR USUARIO
+@app.route ('/usuario/editar/<id>/<clienteid>', methods = ['POST', 'GET'])
+def editar_usuario(id, clienteid):
+   username = request.form.get ('Username')
+   password = request.form.get ('Password')
+   password = generate_password_hash (password)
+   role = request.form.get ('Role')
+   if role == "admin":
+      user_cliente_id = 0
+   else:
+      user_cliente_id = clienteid
+   print (user_cliente_id)
+   nombre = request.form.get ('Nombre')
+   apellido = request.form.get ('Apellido')
+   email = request.form.get ('Email')
+   telefono = request.form.get ('Telefono')
+   response = (
+      supabase.table("usuarios")
+      .update({
+          'username' : username,
+          'password' : password,
+          'role' : role,
+          'user_cliente_id' : user_cliente_id,
+          'Nombre' : nombre,
+          'Apellido' :  apellido,
+          'Email' : email,
+          'Telefono' : telefono
+         })
+      .eq("id", id)
+      .execute())
+   return redirect (url_for('get_usuario', id = id ))
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0',debug=True)

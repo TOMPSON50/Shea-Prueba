@@ -1,0 +1,18 @@
+<form action="/cliente/edit/{{data ['id']}}" method="POST" onsubmit="confirmarEdicion(event)">
+    <input type="hidden" name="form_id" value="form3">
+        <div class="mb-3">
+            <label for="adminNombre" class="form-label">Nombre Completo:</label>
+            <input type="text" class="form-control" id="adminNombre" name="adminNombre" required placeholder="Nombre del contacto administrativo">
+        </div>
+
+        <div class="mb-3">
+            <label for="adminEmail" class="form-label">Correo Electrónico:</label>
+            <input type="email"class="form-control"  id="adminEmail" name="adminEmail" required placeholder="Correo electrónico del contacto administrativo">
+        </div>
+
+        <div class="mb-3">
+            <label for="adminTelefono" class="form-label">Teléfono:</label>
+            <input type="tel" class="form-control" id="adminTelefono" name="adminTelefono" required placeholder="Teléfono del contacto administrativo">
+        </div>
+        <input  type="submit" value="Enviar" class="btn btn-primary mt-2">
+</form>
