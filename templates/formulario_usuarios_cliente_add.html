@@ -1,0 +1,71 @@
+<form action="/addusuario/{{clienteid}}" method="POST" onsubmit="confirmarEdicion(event)">
+    <div class="mb-3" >
+        <input type="hidden" name="source_page" value="pagina_de_cliente">
+        <div class="mb-3">
+        <label for="Nombre" class="form-label">Nombre</label>
+        <input type="text" required class="form-control" name="Nombre">
+        </div>
+        <div class="mb-3">
+          <label for="Apellido" class="form-label">Apellido</label>
+          <input type="text" required class="form-control" name="Apellido">
+        </div>
+        <div class="mb-3">
+          <label for="Email" class="form-label">Email</label>
+          <input type="email" class="form-control" required placeholder="name@example.com" name="Email">
+        </div>
+        <div class="mb-3">
+          <label for="Username" class="form-label">Username</label>
+          <input type="text" required class="form-control" name="Username">
+        </div>
+         <div class="mb-3">
+          <label for="Password" class="form-label">Password</label>
+          <input type="password" required class="form-control" name="Password">
+        </div>
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Número de Teléfono:</label>
+          <input type="tel" id="Telefono" class="form-control" name="Telefono" placeholder="+55 60 01 23 45" 
+                 pattern="^\+?\d{0,2}\s?(\d{2}\s){4}\d{2}$" required>
+        </div>
+        <div class="mb-3">
+          <label for="Role" class="form-label">Role</label>
+          <select class="form-select" required name = "Role" aria-label="Default select example" onchange="mostrarOpciones()">
+          <option selected>Role</option>
+          {%if session ['role'] == 'admin' or session ['role'] == 'adminempresa' %}
+          <option value="adminempresa">Administrador de Empresa</option>
+          <option value="usuarioanz">Usuario Avanzado</option>
+          <option value="operador">Operador</option>
+          {% endif %}
+          {% if session ['role'] == 'usuarioanz' %}
+          <option value="usuarioanz">Usuario Avanzado</option>
+          <option value="operador">Operador</option>
+          {% endif %}
+          </select>
+        </div>
+        <input type="submit" class="btn btn-primary mt-3">
+    </div>
+</form>
+<script>
+    function mostrarOpciones() {
+          const seleccion = document.querySelector("[name='Role']").value;
+          const opcionesAdmin = document.getElementById("opcionesAdmin");
+
+          // Mostrar o ocultar secciones basadas en la selección
+          if (seleccion === "admin") {
+              opcionesAdmin.style.display = "none"; // Oculta opciones para "Administrador General"
+              configInput.value = "0";
+          } else {
+              opcionesAdmin.style.display = "block"; // Muestra opciones si no es "Administrador General"
+          }
+      }
+      function confirmarEdicion(event) {
+            var confirmacion = confirm("¿Estás seguro que deseas Editar este elemento?");
+            if (!confirmacion) {
+                
+                event.preventDefault(); 
+                console.log("Hola apretaste que no");// Detiene el envío del formulario si se cancela
+            }else{
+            console.log ("Fue aceptar")
+            window.location.replace('/dashboard');;}
+        }
+
+  </script>

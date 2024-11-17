@@ -9,7 +9,7 @@
       <a class="btn btn-outline-primary mb-3 " id = "home" href="/dashboard"><i class="fa-solid fa-house"></i></a>
       {% if session ['role'] != 'operador' %}
       <a
-      href = "/register" type= "button" class ="btn btn-outline-warning mb-3 float-end"> Añadir Usuario
+      href = "/addusuario/{{clienteid}}" type= "button" class ="btn btn-outline-warning mb-3 float-end"> Añadir Usuario
       </a>
       {% endif %}
       <tr class= "table-group-divider">
@@ -23,6 +23,7 @@
     </thead>
   
      <tbody class = "table-group-divider">
+      {% if session ['role'] == 'admin' or session ['role'] == 'adminempresa' %}
       {% for disp in data %}
       <tr>
         <th scope="row">{{loop.index0 + 1}}</th>
@@ -42,17 +43,9 @@
           Operador
           {% endif %}
         </td>
-          {% if disp ['user_cliente_id'] == 0 %}
-            <td >NA</td>
-          {% else %}
-            {% set empresa_mostrada = false %} 
-            {% for cliente in data_clientes %}
-                {% if disp ['user_cliente_id'] == cliente ['id'] and not empresa_mostrada %}
-                    <td >{{ cliente ['nombre'] }}</td>
-                {% set empresa_mostrada = true %}   
-                {% endif %}
-            {% endfor %}
-          {% endif %}
+
+         <td >{{ cliente }}</td>
+  
         <td>
           <a
           href = "usuario/{{disp['id']}}" type= "button" class ="btn btn-outline-warning"> VIEW
@@ -60,11 +53,39 @@
         </td>
       </tr>
       {% endfor %}
-    </tbody>
+      {% endif %}
+      {% if session ['role'] == 'usuarioanz'%}
+      {% for disp in data %}
+      {% if disp ['role'] == 'usuarioanz' or disp ['role'] == 'operador' %}
+      <tr>
+        <th scope="row">{{loop.index0 + 1}}</th>
+        <td >{{disp ['Nombre']}}</td>
+        <td >{{disp ['Apellido']}}</td>
+        <td>
+          {% if disp ['role'] == 'admin' %}
+          Administrador General
+          {% endif %}
+          {% if disp ['role'] == 'adminempresa' %}
+          Administrador de Empresa
+          {% endif %}
+          {% if disp ['role'] == 'usuarioanz' %}
+          Usuario Avanzado
+          {% endif %}
+          {% if disp ['role'] == 'operador' %}
+          Operador
+          {% endif %}
+        </td>
+
+         <td >{{ cliente }}</td>
   
-  </table>
-  <script>
-    function goBack() {
-        window.history.back();  // Regresar a la página anterior
-    }
-  </script>
+        <td>
+          <a
+          href = "usuario/{{disp['id']}}" type= "button" class ="btn btn-outline-warning"> VIEW
+        </a>
+        </td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </tbody>
+</table>

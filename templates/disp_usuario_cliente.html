@@ -38,7 +38,7 @@
       <h2>About Shea Solution</h2>
       <p class= "lead">We provide solutions for your business IOT needs.         </p>
       <h2>Ver Usuario</h2>
-      <a class="btn btn-outline-primary mb-3" href="/verusuarios"><i class="fa-solid fa-arrow-left"></i></a>
+      <a class="btn btn-outline-primary mb-3" href="/cliente/verusuarioscliente/{{clienteid}}"><i class="fa-solid fa-arrow-left"></i></a>
       <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-4">
@@ -65,12 +65,17 @@
                         <p class="card-text text-start"><strong>Empresa:</strong> {{ cliente }}</p>
                         <p class="card-text text-start"><strong>Email:</strong> {{data ['Email']}}</p>
                         <p class="card-text text-start"><strong>Telefono:</strong> {{data ['Telefono']}}</p>
-                        {% if session ['role'] == 'admin' %}
+                        {% if session ['role'] == 'admin' or session ['role'] == 'adminempresa' %}
                         <button type="submit" onclick = "edit_disp_usuario(event)" class ="btn btn-primary mt-2">Editar</button>
                         {% endif %}
-                        {% if session ['role'] == 'admin' %}
-                        <form action="delete/{{data ['id']}}" method="POST" style="display:inline;" onsubmit="confirmarEliminacion(event)">
-                          <input type="hidden" name="source_page" value="pagina_de_admin">
+                        {% if session ['role'] == 'usuarioanz' %}
+                          {% if data ['role'] == 'usuarioanz' or data ['role'] == 'operador' %}
+                          <button type="submit" onclick = "edit_disp_usuario(event)" class ="btn btn-primary mt-2">Editar</button>
+                          {% endif %}
+                        {% endif %}  
+                        {% if session ['role'] == 'admin' or session ['role'] == 'adminempresa'%}
+                        <form action="delete/usuario/{{data ['id']}}/{{clienteid}}" method="POST" style="display:inline;" onsubmit="confirmarEliminacion(event)">
+                            <input type="hidden" name="source_page" value="pagina_de_cliente">
                           <button type="submit" class ="btn btn-danger mt-2">Eliminar</button>
                         </form>
                         {% endif %} 
@@ -88,7 +93,7 @@
         </div>
     </div>
     <div class="container-sm"style="width: 20%;" id = "editFormusuario">
-    {% include 'formulario_usuarios.html' %}
+    {% include 'formulario_usuarios_cliente.html' %}
     </div>
     {% include 'footer.html' %}
 </body>

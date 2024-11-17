@@ -129,9 +129,11 @@ main {
           <a class="nav-link " aria-current="page" href="/addcliente">Añadir Cliente</a>
         </li>
         {% endif %}
+        {%if session ['role'] == 'admin'%}
         <li class="nav-item">
           <a class="nav-link " aria-current="page" href="/verusuarios"><i class='bx bx-user bx-xs' ></i></a>
         </li>
+        {% endif %}
       </ul>
     </div>
     {% endif %}
